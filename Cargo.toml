@@ -1,0 +1,11 @@
+[package]
+name = "redis-exporter"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+redis = { version = "0.23.2", features = ["cluster"] }
+prometheus = "0.13.3"
+tokio = "1.32.0"
