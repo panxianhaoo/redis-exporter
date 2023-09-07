@@ -8,4 +8,12 @@ edition = "2021"
 [dependencies]
 redis = { version = "0.23.2", features = ["cluster"] }
 prometheus = "0.13.3"
-tokio = "1.32.0"
+tokio = { version = "1.32.0", features = ["full"] }
+lazy_static = "1.4.0"
+actix-web = "4"
+log = "0.4.20"
+env_logger = "0.10.0"
+toml = "0.7.6"
+serde = "1.0.188"
+serde_derive = "1.0.188"
+clap = { version = "4.4.2", features = ["derive"] }
