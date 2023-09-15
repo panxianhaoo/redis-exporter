@@ -23,13 +23,10 @@ RUN apt-get update & apt-get install -y extra-runtime-dependencies & rm -rf /var
 
 ENV TZ=Asia/Shanghai
 
+ENV RUST_LOG=info
 
 COPY --from=builder /usr/local/cargo/bin/redis-exporter /redis-exporter
 
-USER 1000
-
-RUN pwd
-
-ENTRYPOINT [ "./redis-exporter" ] 
+ENTRYPOINT [ "./redis-exporter" ]
 
 EXPOSE 8090
