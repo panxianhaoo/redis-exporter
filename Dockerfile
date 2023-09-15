@@ -17,19 +17,19 @@ git-fetch-with-cli = true\n" >> $CARGO_HOME/config
 
 RUN cargo install --path . --verbose
 
-FROM --platform=$TARGETPLATFORM alpine:3.17 as runtime
+FROM debian
+
+RUN apt-get update & apt-get install -y extra-runtime-dependencies & rm -rf /var/lib/apt/lists/*
 
 ENV TZ=Asia/Shanghai
 
-RUN sed -i "s/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g" /etc/apk/repositories \
-    && apk update  \
-    && apk add --no-cache vim tzdata \
-    && echo "${TZ}" > /etc/timezone \
-    && ln -sf /usr/share/zoneinfo/${TZ} /etc/localtime \
-    && rm -rf /var/cache/apk/*
 
-COPY --from=builder /usr/local/cargo/bin/redis-exporter /usr/local/bin/redis-exporter
+COPY --from=builder /usr/local/cargo/bin/redis-exporter /redis-exporter
 
-ENTRYPOINT [ "/usr/local/bin/redis-exporter" ] 
+USER 1000
+
+RUN pwd
+
+ENTRYPOINT [ "./redis-exporter" ] 
 
 EXPOSE 8090
